@@ -24,15 +24,15 @@ def counting(map, width, height, region):
     return count
 
 
-def generate(index, width, height, turn_reveal, turn_free,region, treasure_x,treasure_y, map):
+def generate(index, width, height, turn_reveal, turn_free, region, treasure_x, treasure_y, map):
     path = f'data/Map{index}.txt'
     size = str(width) + ' ' + str(height)
     f = open(path, "w")
-    f.write(size +"\n")
-    f.write(str(turn_reveal) +'\n')
-    f.write(str(turn_free) +'\n')
-    f.write(str(region) +'\n')
-    f.write(str(treasure_x) + ' ' + str(treasure_y) +'\n')
+    f.write(size + "\n")
+    f.write(str(turn_reveal) + '\n')
+    f.write(str(turn_free) + '\n')
+    f.write(str(region) + '\n')
+    f.write(str(treasure_x) + ' ' + str(treasure_y) + '\n')
     for x in range(height):
         row = str(map[x][0])
         for y in range(width):
@@ -162,7 +162,7 @@ def create_sea(map, width, height, area, space):
 def fill_region(map, width, height, area, region, start_x, start_y, direction):
     if area == 0:
         return
-    if (direction == 1):
+    if direction == 1:
         # print("type 1")
         for r in range(width - start_y):
             for x in range(start_x + r):
@@ -190,7 +190,7 @@ def fill_region(map, width, height, area, region, start_x, start_y, direction):
             x += 1
         fill_region(map, width, height, area, region, start_x + x, width - 1, 0)
         return start_x + x, width - 1, 0
-    if (direction == 0):
+    if direction == 0:
         # print("type 0")
         for r in range(start_y + 1):
             for x in range(start_x + r):
@@ -256,7 +256,7 @@ def create_map(width, height, region):
     # TODO: setup calculate number of regions and area of them
     regions = []
     # --- sea area ---
-    if (width * height >= 16 * 16):
+    if width * height >= 16 * 16:
         sea_area = numpy.random.randint(3.5 * math.sqrt(width * height), ((width * height) ** (3 / 4)))
     else:
         sea_area = int(0.25 * width * height)
@@ -272,16 +272,17 @@ def create_map(width, height, region):
     # TODO: fill map with region number
     create_sea(map, width, height, regions[0], space)
     x = y = 0
-    dir = 1
+    direction = 1
     list = [i for i in range(1, region)]
 
     for i in range(region - 1):
         reg = numpy.random.choice(list)
         list.remove(reg)
-        x, y, dir = fill_region(map, width, height, regions[reg], reg, x, y, dir)
+        x, y, direction = fill_region(map, width, height, regions[reg], reg, x, y, direction)
 
     # printMap(map)
     # print("-------")
+    # TODO: make sure every area same region is adjacent
     if width * height >= 16 * 16:
         track_separated_area(map, width, height, space)
     return map
@@ -290,35 +291,36 @@ def create_map(width, height, region):
 def add_mountain_and_prison(map, width, height, treasure_x, treasure_y, prison):
     temp = 0
     for mountain in range(int((width * height) ** (1 / 4)) + 1):
-        lenght = numpy.random.randint(1,width * 0.5)
-        mountainY = numpy.random.randint(3, width-3)
-        mountainX = numpy.random.randint(3, height -3)
+        lenght = numpy.random.randint(1, width * 0.5)
+        mountainY = numpy.random.randint(3, width - 3)
+        mountainX = numpy.random.randint(3, height - 3)
         for i in range(lenght):
             if map[mountainX][mountainY] == 0:
-                temp +=0
+                temp += 0
             elif "M" in str(map[mountainX][mountainY]):
-                temp +=0
+                temp += 0
             elif mountainX and treasure_x and mountainY == treasure_y:
-                temp +=0
+                temp += 0
             else:
                 map[mountainX][mountainY] = str(map[mountainX][mountainY]) + 'M'
             mountainY += numpy.random.choice([-1, 0, 1], p=[0.4, 0.2, 0.4])
             mountainX += numpy.random.choice([-1, 0, 1], p=[0.4, 0.2, 0.4])
-            if mountainY > width - 1 or mountainY < 0 or mountainX > height -1 or mountainY < 0:
+            if mountainY > width - 1 or mountainY < 0 or mountainX > height - 1 or mountainY < 0:
                 break
 
-    prisons = [0,map[treasure_x][treasure_y]]
+    prisons = [0, map[treasure_x][treasure_y]]
     i = 0
     loop = 0
-    while i < prison+1 and loop < 10000:
-        prisonX = numpy.random.randint(2,height-2)
-        prisonY = numpy.random.randint(2,width-2)
-        if ("P" not in str(map[prisonX][prisonY])) and ("M" not in str(map[prisonX][prisonY])) and map[prisonX][prisonY] not in prisons:
-                if abs(prisonX - treasure_x) > height**0.5 or  abs(prisonY - treasure_y) > width**0.5:
-                    prisons.append(map[prisonX][prisonY])
-                    map[prisonX][prisonY] = str(map[prisonX][prisonY]) + "P"
-                    i+=1
-        loop+=1
+    while i < prison + 1 and loop < 10000:
+        prisonX = numpy.random.randint(2, height - 2)
+        prisonY = numpy.random.randint(2, width - 2)
+        if ("P" not in str(map[prisonX][prisonY])) and ("M" not in str(map[prisonX][prisonY])) and map[prisonX][
+            prisonY] not in prisons:
+            if abs(prisonX - treasure_x) > height ** 0.5 or abs(prisonY - treasure_y) > width ** 0.5:
+                prisons.append(map[prisonX][prisonY])
+                map[prisonX][prisonY] = str(map[prisonX][prisonY]) + "P"
+                i += 1
+        loop += 1
 
 
 def main(width, height):
@@ -337,14 +339,14 @@ def main(width, height):
     prison = int(region - 3)
     add_mountain_and_prison(map, width, height, treasureX, treasureY, prison)
     # map[treasureX][treasureY] = str(map[treasureX][treasureY]) + "T"
-    turn_reveal = numpy.random.randint(2,4)
-    turn_free = int((width* height) / 50)
-    if(turn_free <= turn_reveal):
+    turn_reveal = numpy.random.randint(2, 4)
+    turn_free = int((width * height) / 50)
+    if (turn_free <= turn_reveal):
         turn_free = turn_reveal + 1
-    #print_map(map)
-    generate(index,width,height,turn_reveal,turn_free,region,treasureX,treasureY,map)
+    # print_map(map)
+    generate(index, width, height, turn_reveal, turn_free, region, treasureX, treasureY, map)
     f = open("data/init.txt", "w")
-    f.write(str(index+1))
+    f.write(str(index + 1))
     f.close()
     del map
 
