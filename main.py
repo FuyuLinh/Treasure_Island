@@ -16,3 +16,6 @@ if __name__ == '__main__':
     # TODO: get width, height
     # map_game.get_width()
     # map_game.get_height()
+
+    map = map_game.get_data()
+    print(map[8][13])
