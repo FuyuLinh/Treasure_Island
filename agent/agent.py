@@ -63,6 +63,14 @@ class Agent:
                     if ('T' in map[x + 1][y + 1]):
                         return self.__coordinate.set(x + 1, y + 1)
                     self.__agent_map[x][y].append('-1')
+                    self.__agent_map[x - 1][y - 1].append('-1')
+                    self.__agent_map[x - 1][y].append('-1')
+                    self.__agent_map[x - 1][y + 1].append('-1')
+                    self.__agent_map[x][y - 1].append('-1')
+                    self.__agent_map[x][y + 1].append('-1')
+                    self.__agent_map[x + 1][y - 1].append('-1')
+                    self.__agent_map[x + 1][y].append('-1')
+                    self.__agent_map[x + 1][y + 1].append('-1')
                     return self.__coordinate.set(x, y)
                 elif (step == 1):
                     x = x - move
@@ -85,6 +93,14 @@ class Agent:
                     if ('T' in map[x + 1][y + 1]):
                         return self.__coordinate.set(x + 1, y + 1)
                     self.__agent_map[x][y].append('-1')
+                    self.__agent_map[x - 1][y - 1].append('-1')
+                    self.__agent_map[x - 1][y].append('-1')
+                    self.__agent_map[x - 1][y + 1].append('-1')
+                    self.__agent_map[x][y - 1].append('-1')
+                    self.__agent_map[x][y + 1].append('-1')
+                    self.__agent_map[x + 1][y - 1].append('-1')
+                    self.__agent_map[x + 1][y].append('-1')
+                    self.__agent_map[x + 1][y + 1].append('-1')
                     return self.__coordinate.set(x, y)
                 elif (step == 2):
                     y = y + move
@@ -107,6 +123,14 @@ class Agent:
                     if ('T' in map[x + 1][y + 1]):
                         return self.__coordinate.set(x + 1, y + 1)
                     self.__agent_map[x][y].append('-1')
+                    self.__agent_map[x - 1][y - 1].append('-1')
+                    self.__agent_map[x - 1][y].append('-1')
+                    self.__agent_map[x - 1][y + 1].append('-1')
+                    self.__agent_map[x][y - 1].append('-1')
+                    self.__agent_map[x][y + 1].append('-1')
+                    self.__agent_map[x + 1][y - 1].append('-1')
+                    self.__agent_map[x + 1][y].append('-1')
+                    self.__agent_map[x + 1][y + 1].append('-1')
                     return self.__coordinate.set(x, y)
                 elif (step == 3):
                     y = y - move
@@ -129,6 +153,14 @@ class Agent:
                     if ('T' in map[x + 1][y + 1]):
                         return self.__coordinate.set(x + 1, y + 1)
                     self.__agent_map[x][y].append('-1')
+                    self.__agent_map[x - 1][y - 1].append('-1')
+                    self.__agent_map[x - 1][y].append('-1')
+                    self.__agent_map[x - 1][y + 1].append('-1')
+                    self.__agent_map[x][y - 1].append('-1')
+                    self.__agent_map[x][y + 1].append('-1')
+                    self.__agent_map[x + 1][y - 1].append('-1')
+                    self.__agent_map[x + 1][y].append('-1')
+                    self.__agent_map[x + 1][y + 1].append('-1')
                     return self.__coordinate.set(x, y)
         elif (random_action == 2): # move 3-4 steps
             move = random.choice([3, 4])
@@ -212,6 +244,31 @@ class Agent:
             if ('T' in map[x + 2][y + 2]):
                 return self.__coordinate.set(x + 2, y + 2)
             self.__agent_map[x][y].append('-1')
+            self.__agent_map[x - 1][y - 1].append('-1')
+            self.__agent_map[x - 1][y].append('-1')
+            self.__agent_map[x - 1][y + 1].append('-1')
+            self.__agent_map[x][y - 1].append('-1')
+            self.__agent_map[x][y + 1].append('-1')
+            self.__agent_map[x + 1][y - 1].append('-1')
+            self.__agent_map[x + 1][y].append('-1')
+            self.__agent_map[x + 1][y + 1].append('-1')
+
+            self.__agent_map[x - 2][y - 2].append('-1')
+            self.__agent_map[x - 2][y - 1].append('-1')
+            self.__agent_map[x - 2][y].append('-1')
+            self.__agent_map[x - 2][y + 2].append('-1')
+            self.__agent_map[x - 2][y + 1].append('-1')
+            self.__agent_map[x - 1][y - 2].append('-1')
+            self.__agent_map[x - 2][y + 2].append('-1')
+            self.__agent_map[x][y - 2].append('-1')
+            self.__agent_map[x][y + 2].append('-1')
+            self.__agent_map[x + 1][y - 2].append('-1')
+            self.__agent_map[x + 1][y + 2].append('-1')
+            self.__agent_map[x + 2][y - 2].append('-1')
+            self.__agent_map[x + 2][y - 1].append('-1')
+            self.__agent_map[x + 2][y].append('-1')
+            self.__agent_map[x + 2][y + 1].append('-1')
+            self.__agent_map[x + 2][y + 2].append('-1')
             return self.__coordinate.set(x, y)
 
     def teleport(self, width, height, map):
