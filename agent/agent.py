@@ -1,5 +1,5 @@
-import maps.position as Position
-import maps.map as map
+from maps.position import Position
+from maps.map import Map
 import random
 import math
 import sys

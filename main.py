@@ -1,5 +1,6 @@
 from maps.map import read_input
 from maps.position import Position
+from agent.agent import Agent
 
 if __name__ == '__main__':
     turn_reveals, turn_free, map_game = read_input('data/Map0.txt')
