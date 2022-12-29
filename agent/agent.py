@@ -29,9 +29,8 @@ class Agent:
             x = random.randint(0, height - 1)
             y = random.randint(0, width - 1)
             if ('M' not in map[x][y] and 'P' not in map[x][y] and map[x][y] != '0'):
-                self.__coordinate.set(x, y)
                 self.__agent_map[x][y].append('-1')
-                return map[x][y]
+                return self.__coordinate.set(x, y)
 
     def action(self, map):
         random_action = random.randint(0, 3)
@@ -39,18 +38,186 @@ class Agent:
             in_progress
         elif (random_action == 1): # move 1-2 steps and perform small scan
             move = random.choice([1, 2])
+            x = self.__coordinate.get_x()
+            y = self.__coordinate.get_y()
+            while True:
+                step = random.randint(0, 3)
+                if (step == 0):
+                    x = x + move
+                    if (map[x][y] == '0' or 'M' in map[x][y]):
+                        continue
+                    if ('T' in map[x - 1][y - 1]):
+                        return self.__coordinate.set(x - 1, y - 1)
+                    if ('T' in map[x - 1][y]):
+                        return self.__coordinate.set(x - 1, y)
+                    if ('T' in map[x + 1][y + 1]):
+                        return self.__coordinate.set(x + 1, y + 1)
+                    if ('T' in map[x][y - 1]):
+                        return self.__coordinate.set(x, y - 1)
+                    if ('T' in map[x][y + 1]):
+                        return self.__coordinate.set(x, y + 1)
+                    if ('T' in map[x + 1][y - 1]):
+                        return self.__coordinate.set(x + 1, y - 1)
+                    if ('T' in map[x + 1][y]):
+                        return self.__coordinate.set(x + 1, y)
+                    if ('T' in map[x + 1][y + 1]):
+                        return self.__coordinate.set(x + 1, y + 1)
+                    self.__agent_map[x][y].append('-1')
+                    return self.__coordinate.set(x, y)
+                elif (step == 1):
+                    x = x - move
+                    if (map[x][y] == '0' or 'M' in map[x][y]):
+                        continue
+                    if ('T' in map[x - 1][y - 1]):
+                        return self.__coordinate.set(x - 1, y - 1)
+                    if ('T' in map[x - 1][y]):
+                        return self.__coordinate.set(x - 1, y)
+                    if ('T' in map[x + 1][y + 1]):
+                        return self.__coordinate.set(x + 1, y + 1)
+                    if ('T' in map[x][y - 1]):
+                        return self.__coordinate.set(x, y - 1)
+                    if ('T' in map[x][y + 1]):
+                        return self.__coordinate.set(x, y + 1)
+                    if ('T' in map[x + 1][y - 1]):
+                        return self.__coordinate.set(x + 1, y - 1)
+                    if ('T' in map[x + 1][y]):
+                        return self.__coordinate.set(x + 1, y)
+                    if ('T' in map[x + 1][y + 1]):
+                        return self.__coordinate.set(x + 1, y + 1)
+                    self.__agent_map[x][y].append('-1')
+                    return self.__coordinate.set(x, y)
+                elif (step == 2):
+                    y = y + move
+                    if (map[x][y] == '0' or 'M' in map[x][y]):
+                        continue
+                    if ('T' in map[x - 1][y - 1]):
+                        return self.__coordinate.set(x - 1, y - 1)
+                    if ('T' in map[x - 1][y]):
+                        return self.__coordinate.set(x - 1, y)
+                    if ('T' in map[x + 1][y + 1]):
+                        return self.__coordinate.set(x + 1, y + 1)
+                    if ('T' in map[x][y - 1]):
+                        return self.__coordinate.set(x, y - 1)
+                    if ('T' in map[x][y + 1]):
+                        return self.__coordinate.set(x, y + 1)
+                    if ('T' in map[x + 1][y - 1]):
+                        return self.__coordinate.set(x + 1, y - 1)
+                    if ('T' in map[x + 1][y]):
+                        return self.__coordinate.set(x + 1, y)
+                    if ('T' in map[x + 1][y + 1]):
+                        return self.__coordinate.set(x + 1, y + 1)
+                    self.__agent_map[x][y].append('-1')
+                    return self.__coordinate.set(x, y)
+                elif (step == 3):
+                    y = y - move
+                    if (map[x][y] == '0' or 'M' in map[x][y]):
+                        continue
+                    if ('T' in map[x - 1][y - 1]):
+                        return self.__coordinate.set(x - 1, y - 1)
+                    if ('T' in map[x - 1][y]):
+                        return self.__coordinate.set(x - 1, y)
+                    if ('T' in map[x + 1][y + 1]):
+                        return self.__coordinate.set(x + 1, y + 1)
+                    if ('T' in map[x][y - 1]):
+                        return self.__coordinate.set(x, y - 1)
+                    if ('T' in map[x][y + 1]):
+                        return self.__coordinate.set(x, y + 1)
+                    if ('T' in map[x + 1][y - 1]):
+                        return self.__coordinate.set(x + 1, y - 1)
+                    if ('T' in map[x + 1][y]):
+                        return self.__coordinate.set(x + 1, y)
+                    if ('T' in map[x + 1][y + 1]):
+                        return self.__coordinate.set(x + 1, y + 1)
+                    self.__agent_map[x][y].append('-1')
+                    return self.__coordinate.set(x, y)
         elif (random_action == 2): # move 3-4 steps
             move = random.choice([3, 4])
+            x = self.__coordinate.get_x()
+            y = self.__coordinate.get_y()
+            while True:
+                step = random.randint(0, 3)
+                if (step == 0):
+                    x = x + move
+                    if (map[x][y] == '0' or 'M' in map[x][y]):
+                        continue
+                    self.__agent_map[x][y].append('-1')
+                    return self.__coordinate.set(x, y)
+                elif (step == 1):
+                    x = x - move
+                    if (map[x][y] == '0' or 'M' in map[x][y]):
+                        continue
+                    self.__agent_map[x][y].append('-1')
+                    return self.__coordinate.set(x, y)
+                elif (step == 2):
+                    y = y + move
+                    if (map[x][y] == '0' or 'M' in map[x][y]):
+                        continue
+                    self.__agent_map[x][y].append('-1')
+                    return self.__coordinate.set(x, y)
+                elif (step == 3):
+                    y = y - move
+                    if (map[x][y] == '0' or 'M' in map[x][y]):
+                        continue
+                    self.__agent_map[x][y].append('-1')
+                    return self.__coordinate.set(x, y)
         elif (random_action == 3): # stay and perform large scan
-            in_progress
+            x = self.__coordinate.get_x()
+            y = self.__coordinate.get_y()
+            if ('T' in map[x - 1][y - 1]):
+                return self.__coordinate.set(x - 1, y - 1)
+            if ('T' in map[x - 1][y]):
+                return self.__coordinate.set(x - 1, y)
+            if ('T' in map[x + 1][y + 1]):
+                return self.__coordinate.set(x + 1, y + 1)
+            if ('T' in map[x][y - 1]):
+                return self.__coordinate.set(x, y - 1)
+            if ('T' in map[x][y + 1]):
+                return self.__coordinate.set(x, y + 1)
+            if ('T' in map[x + 1][y - 1]):
+                return self.__coordinate.set(x + 1, y - 1)
+            if ('T' in map[x + 1][y]):
+                return self.__coordinate.set(x + 1, y)
+            if ('T' in map[x + 1][y + 1]):
+                return self.__coordinate.set(x + 1, y + 1)
+            if ('T' in map[x - 2][y - 2]):
+                return self.__coordinate.set(x - 2, y - 2)
+            if ('T' in map[x - 2][y - 1]):
+                return self.__coordinate.set(x - 2, y - 1)
+            if ('T' in map[x - 2][y]):
+                return self.__coordinate.set(x - 2, y)
+            if ('T' in map[x - 2][y + 1]):
+                return self.__coordinate.set(x - 2, y + 1)
+            if ('T' in map[x - 2][y + 2]):
+                return self.__coordinate.set(x - 2, y + 2)
+            if ('T' in map[x - 1][y - 2]):
+                return self.__coordinate.set(x - 1, y - 2)
+            if ('T' in map[x - 1][y + 2]):
+                return self.__coordinate.set(x - 1, y + 2)
+            if ('T' in map[x][y - 2]):
+                return self.__coordinate.set(x + 1, y - 2)
+            if ('T' in map[x][y + 2]):
+                return self.__coordinate.set(x - 1, y + 2)
+            if ('T' in map[x + 1][y - 2]):
+                return self.__coordinate.set(x + 1, y - 2)
+            if ('T' in map[x + 1][y + 2]):
+                return self.__coordinate.set(x + 1, y + 2)
+            if ('T' in map[x + 2][y - 2]):
+                return self.__coordinate.set(x + 2, y - 2)
+            if ('T' in map[x + 2][y - 1]):
+                return self.__coordinate.set(x + 2, y - 1)
+            if ('T' in map[x + 2][y]):
+                return self.__coordinate.set(x + 2, y)
+            if ('T' in map[x + 2][y + 1]):
+                return self.__coordinate.set(x + 2, y + 1)
+            if ('T' in map[x + 2][y + 2]):
+                return self.__coordinate.set(x + 2, y + 2)
+            self.__agent_map[x][y].append('-1')
+            return self.__coordinate.set(x, y)
 
     def teleport(self, width, height, map):
         while True:
             x = random.randint(0, height - 1)
             y = random.randint(0, width - 1)
-            if ('M' not in map[x][y] and map[x][y] != '0'):
-                if ('P' in map[x][y]):
-                    return 
-                self.__coordinate.set(x, y)
+            if ('M' not in map[x][y] and 'T' not in map[x][y] and map[x][y] != '0'):
                 self.__agent_map[x][y].append('-1')
-                return map[x][y]
+                return self.__coordinate.set(x, y)
