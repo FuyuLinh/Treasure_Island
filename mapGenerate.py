@@ -35,7 +35,7 @@ def generate(index, width, height, turn_reveal, turn_free, region, treasure_x, t
     f.write(str(treasure_x) + ' ' + str(treasure_y) + '\n')
     for x in range(height):
         row = str(map[x][0])
-        for y in range(width):
+        for y in range(1,width):
             row += '; ' + str(map[x][y])
         f.write(row + '\n')
     f.close()
