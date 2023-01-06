@@ -32,13 +32,15 @@ if __name__ == '__main__':
 
     start_map = [0, 0]
     draw_grid(screen)
-
+    agent = Position(5, 10)
     while True:
+        x = agent.get_x()
+        y = agent.get_y()
         # TODO: set knowledge_map here
         knowledge_map = []
 
         # TODO: set location of agent here
-        agent = Position(5, 10)
+
 
         treasure = map_game.get_treasure()
         for event in pygame.event.get():
@@ -48,6 +50,14 @@ if __name__ == '__main__':
                 if event.key == pygame.K_SPACE:
                     # TODO: game run in here
                     print("game turn")
+                if event.key == pygame.K_w and x > 0:
+                    agent.set(x-1, y)
+                if event.key == pygame.K_s and agent.get_x() < map_game.get_height() - 1:
+                    agent.set(agent.get_x()+1, agent.get_y())
+                if event.key == pygame.K_a and agent.get_y() > 0:
+                    agent.set(agent.get_x(), agent.get_y()-1)
+                if event.key == pygame.K_d and agent.get_y() < map_game.get_height() - 1:
+                    agent.set(agent.get_x(), agent.get_y()+1)
 
                 # TODO: move screen
                 if event.key == pygame.K_UP and start_map[0] > 0:

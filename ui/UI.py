@@ -88,6 +88,6 @@ def redraw(start_map, surface, map, region, agent, knowledge_map, treasure):
         fill_cell(start_map, surface, map, str(i + 1), COLOR_PALLET[i + 3])
     # draw_knowledge(start_map, surface, knowledge_map)
     if -1 < agent.get_x() - start_map[0] < 16 and -1 < agent.get_y() - start_map[1] < 16:
-        draw_agent(surface, agent.get_x() - start_map[0], agent.get_x() - start_map[1])
+        draw_agent(surface, agent.get_x() - start_map[0], agent.get_y() - start_map[1])
     if -1 < treasure.get_x() - start_map[0] < 16 and -1 < treasure.get_y() - start_map[1] < 16:
-        draw_treasure(surface, treasure.get_x() - start_map[0], treasure.get_x() - start_map[1])
+        draw_treasure(surface, treasure.get_x() - start_map[0], treasure.get_y() - start_map[1])
