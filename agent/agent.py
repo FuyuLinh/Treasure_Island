@@ -194,8 +194,8 @@ class Agent:
             self.__teleport = False
             print("You have teleported")
         else:
-            self.__move(random.randint(1, 4), 2)
-        return True
+            print("Đang else nè má")
+            self.__move(int(random.randint(1, 4)), 2)
 
         
 
