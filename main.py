@@ -27,8 +27,9 @@ if __name__ == '__main__':
     # agent.action()
     # print(agent.get_coordinate().get_x(), agent.get_coordinate().get_y())
     # mapGenerate.print_map(agent.get_agent_map())
-    for i in range(1000):
+    for i in range(500):
         print(i)
+        r = input()
         if agent.action() == False:
             break
         print(agent.get_coordinate().get_x(), agent.get_coordinate().get_y())

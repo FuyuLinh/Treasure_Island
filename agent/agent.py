@@ -46,13 +46,13 @@ class Agent:
         y = self.__coordinate.get_y()
         while (step > 0):
             if (direction == 0): # Up
-                if ('M' in map[x-1][y] or map[x-1][y] == '0' or x == 0):
+                if ('M' in map[x - 1][y] or map[x - 1][y] == '0' or x == 0):
                     break
                 x = x - 1
                 self.__agent_map[x][y] = '-'
                 step = step - 1
             elif (direction == 1): # Down
-                if ('M' in map[x+1][y] or map[x+1][y] == '0' or x == self.__map.get_height() - 1):
+                if ('M' in map[x + 1][y] or map[x + 1][y] == '0' or x == self.__map.get_height() - 1):
                     break
                 x = x + 1
                 self.__agent_map[x][y] = '-'
@@ -88,6 +88,7 @@ class Agent:
                     continue
                 if (self.__agent_map[i][j] == '1'):
                     sum_point += 1
+        print("point achieved:", sum_point, "at", x,":",y)
         return sum_point
 
     def __choose_action(self):
@@ -96,67 +97,74 @@ class Agent:
         current_count = 0 
         step = 0
         recored_dir = 0
+
+        # Examine at its standing
         x = self.__coordinate.get_x()
         y = self.__coordinate.get_y()
-        if self.__calculate_point(x, y) > 5:
-            return max_count, step, recored_dir
+        if self.__calculate_point(x, y) != 0:
+            return step, recored_dir
+
+        # Examine up direction
         for move in range(1, 5):
-            # Move up
             x = self.__coordinate.get_x()
             y = self.__coordinate.get_y()
             x -= move
-            current_count = self.__calculate_point(x, y)
-            if x < 0 or y < 0 or x > self.__map.get_height() - 1 or y > self.__map.get_width() - 1 or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
+            if x < 0  or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
                 break
-            if (current_count>max_count):
+            current_count = self.__calculate_point(x, y)
+            if (current_count > max_count):
                 step = move
                 max_count = current_count
                 recored_dir = 1
-
-        for move in range(1, 5):    
-            # Move down
+        
+        # Examine down direction
+        for move in range(1, 5):
             x = self.__coordinate.get_x()
             y = self.__coordinate.get_y()
             x += move
-            current_count = self.__calculate_point(x, y)
-            if x < 0 or y < 0 or x > self.__map.get_height() - 1 or y > self.__map.get_width() - 1 or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
+            if x > self.__map.get_height() - 1 or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
                 break
-            if (current_count>max_count):
+            current_count = self.__calculate_point(x, y)
+            if (current_count > max_count):
                 step = move
                 max_count = current_count
                 recored_dir = 2
 
+        # Examine right direction
         for move in range(1, 5):
-            # Move right
             x = self.__coordinate.get_x()
             y = self.__coordinate.get_y()
             y += move
-            current_count = self.__calculate_point(x, y)
-            if x < 0 or y < 0 or x > self.__map.get_height() - 1 or y > self.__map.get_width() - 1 or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
+            if y > self.__map.get_width() - 1 or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
                 break
-            if (current_count>max_count):
+            current_count = self.__calculate_point(x, y)
+            if (current_count > max_count):
                 step = move
                 max_count = current_count
                 recored_dir = 3
 
+        # Examine left direction
         for move in range(1, 5):
-            # Move left
             x = self.__coordinate.get_x()
             y = self.__coordinate.get_y()
             y -= move
-            current_count = self.__calculate_point(x, y)
-            if x < 0 or y < 0 or x > self.__map.get_height() - 1 or y > self.__map.get_width() - 1 or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
+            if y < 0 or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
                 break
+            current_count = self.__calculate_point(x, y)
             if (current_count>max_count):
                 step = move
                 max_count = current_count
                 recored_dir = 4
-        if recored_dir == 0:
-            recored_dir = 5
-        return max_count, step, recored_dir
+        
+        if (recored_dir == 0):
+            print("Record_dir:", recored_dir)
+            return step, 5
+        print("Record_dir:", recored_dir)
+        return step, recored_dir
 
     def action(self):
-        max_count, step, recored_dir = self.__choose_action()
+        step, recored_dir = self.__choose_action()
+        print("Record taken:", recored_dir)
         if recored_dir == 0:
             self.__scan(2)
             print("Stand and scan")
@@ -180,23 +188,25 @@ class Agent:
             if step == 1 or step == 2:
                 self.__scan(1)
             print("Move left", step)
-        elif recored_dir == 5 and self.__teleport == True:
-            print("Teleport :)))")
-            self.teleport()
+        elif recored_dir == 5 and self.__teleport:
+            print("teleport :)))")
+            self.__teleport()
             self.__teleport = False
+            print("You have teleported")
         else:
-            return False
+            self.__move(random.randint(1, 4), 2)
         return True
 
         
 
 
-    def teleport(self):
+    def __teleport(self):
         map = self.__map.get_data()
         for x in range(0, self.__map.get_height()):
             for y in range(0, self.__map.get_width()):
                 current_point = self.__calculate_point(x, y)
-                if current_point > 2:
+                if current_point != 0:
+                    print("Hey I'm in")
                     if ('M' not in map[x][y] and 'T' not in map[x][y] and map[x][y] != '0'):
                         self.__agent_map[x][y] = '-'
                         self.__coordinate.set(x, y)
