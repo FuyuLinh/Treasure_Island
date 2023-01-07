@@ -71,6 +71,9 @@ class Agent:
                 step = step - 1
         self.__coordinate.set(x, y)
 
+    def merge_hint():
+        a = str
+
     def __scan(self, type):
         x = self.__coordinate.get_x()
         y = self.__coordinate.get_y()
@@ -89,6 +92,14 @@ class Agent:
                 if (self.__agent_map[i][j] == '1'):
                     sum_point += 1
         # print("point achieved:", sum_point, "at", x,":",y)
+        return sum_point
+
+    def __calculate_hint_point(self, hint):
+        sum_point = 0
+        for i in range(0, self.__map.get_height):
+            for j in range(0, self.__map.get_width):
+                if hint[i][j] == 0 and self.__agent_map[i][j] != "-":
+                    sum_point += 1
         return sum_point
 
     def __choose_action(self):
@@ -155,7 +166,13 @@ class Agent:
                 step = move
                 max_count = current_count
                 recored_dir = 4
-        
+
+        # Verify hint
+        for i in range(len(self.__hint)):
+            if self.__calculate_hint_point(self.__hint[i]) > 25:
+                recored_dir = 6
+                break
+
         if (recored_dir == 0):
             # print("Record_dir:", recored_dir)
             return step, 5
@@ -217,6 +234,11 @@ class Agent:
             self.__teleport = False
             print("You have teleported")
             return "The agent has just TELEPORTED. What a magic move +_+"
+
+        # Verify_hint
+        elif recored_dir == 6:
+            self.merge_hint()
+
         else:
             a = int(random.randint(0, 3))
             self.__move(a, 2)
