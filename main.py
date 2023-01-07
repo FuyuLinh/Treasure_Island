@@ -26,7 +26,7 @@ def print_log(index, string, result):
     f.close()
 
 if __name__ == '__main__':
-    turn_reveals, turn_free, map_game = read_input('data/Map1.txt')
+    turn_reveals, turn_free, map_game = read_input('data/Map2.txt')
     # TODO: get treasure location
     # map_game.get_treasure().get_x()
     # map_game.get_treasure().get_y()
@@ -103,4 +103,4 @@ if __name__ == '__main__':
         time.sleep(0.1)
         clock.tick(60)
         turn += 1
-    print_log(1,log,"WIN")
+    print_log(2,log,"WIN")

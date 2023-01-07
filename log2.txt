@@ -1,0 +1,31 @@
+29
+WIN
+Hello this is hint 6
+Turn0
+Hello this is hint 1
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint 0
+Turn1
+Hello this is hint 4
+The agent choose to use hint 0
+The agent has move UP 4 steps
+Turn2
+Hello this is hint 1
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint 0
+Turn3
+Hello this is hint 7
+The agent choose to use hint 0
+The agent has move RIGHT 4 steps
+Turn4
+Hello this is hint 10
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint 0
+Turn5
+Hello this is hint 3
+The agent choose to use hint 0
+The agent has move UP 4 steps
+Turn6
+Hello this is hint 4
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint 0
