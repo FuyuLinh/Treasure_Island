@@ -30,7 +30,7 @@ def print_log(index, string, result):
     f.close()
 
 if __name__ == '__main__':
-    index = 2
+    index = 3
     turn_reveals, turn_free, map_game = read_input(f'data/Map{index}.txt')
     # TODO: get treasure location
     # map_game.get_treasure().get_x()
@@ -84,12 +84,13 @@ if __name__ == '__main__':
             log.append(f'The pirate free')
         if turn > turn_free:
             log.append(f'{pirate.move()} then {pirate.move()}')
+            print(f'The pirate at {pirate.get_position().get_x()} {pirate.get_position().get_y()}')
         hint = Hint(map_game,pirate,agent)
         agent.receive_hint(hint)
         log.append(hint.get_message())
         log.append(agent.action())
         log.append(agent.action())
-        print(f'The pirate at {pirate.get_position().get_x()} {pirate.get_position().get_y()}')
+
         if map_game.get_height() - 1 - agent.get_coordinate().get_x() < 8:
             start_map[0] = map_game.get_height() - 16
         elif agent.get_coordinate().get_x() < 7:
@@ -105,9 +106,9 @@ if __name__ == '__main__':
         redraw(start_map, screen, map_game.get_data(), map_game.get_region(), agent.get_coordinate(),
                agent.get_agent_map(), treasure)
         pygame.display.update()
-        time.sleep(0.1)
         clock.tick(60)
         turn += 1
+        print(turn)
     if is_win(agent.get_agent_map(), map_game.get_treasure()):
         print_log(index,log,"WIN")
     if is_lose(pirate,map_game.get_treasure()):

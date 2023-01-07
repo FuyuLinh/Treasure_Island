@@ -1,0 +1,231 @@
+229
+WIN
+Turn 0
+The agent spawn at 4 28
+The pirate is free at the beginning of the 200th turn
+Hello this is hint 5
+Turn 1
+Hello this is hint 2
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+The agent has just TELEPORTED. What a magic move +_+
+Turn 2
+The pirate at 37 72
+Hello this is hint 9
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Turn 3
+Hello this is hint 4
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+The agent has move UP 4 steps
+Turn 4
+Hello this is hint 9
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Turn 5
+Hello this is hint 4
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+The agent has move RIGHT 1 steps and perform SMALL SCAN
+Turn 6
+Hello this is hint 15
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Turn 7
+Hello this is hint 5
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+The agent has move UP 4 steps
+Turn 8
+Hello this is hint 7
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Turn 9
+Hello this is hint 11
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move UP
+Turn 10
+Hello this is hint 4
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move DOWN
+Turn 11
+Hello this is hint 12
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 12
+Hello this is hint 7
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move UP
+Turn 13
+Hello this is hint 15
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 14
+Hello this is hint 4
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move LEFT
+Turn 15
+Hello this is hint 1
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move UP
+Turn 16
+Hello this is hint 4
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 17
+Hello this is hint 8
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move UP
+Turn 18
+Hello this is hint 16
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move DOWN
+Turn 19
+Hello this is hint 4
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move LEFT
+Turn 20
+Hello this is hint 1
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move DOWN
+Turn 21
+Hello this is hint 5
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 22
+Hello this is hint 14
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move DOWN
+Turn 23
+Hello this is hint 7
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move UP
+Turn 24
+Hello this is hint 11
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 25
+Hello this is hint 13
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move DOWN
+Turn 26
+Hello this is hint 11
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move DOWN
+Turn 27
+Hello this is hint 11
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 28
+Hello this is hint 9
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move UP
+Turn 29
+Hello this is hint 6
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move LEFT
+Turn 30
+Hello this is hint 14
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 31
+Hello this is hint 13
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move DOWN
+Turn 32
+Hello this is hint 2
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move LEFT
+Turn 33
+Hello this is hint 2
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move DOWN
+Turn 34
+Hello this is hint 9
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move UP
+Turn 35
+Hello this is hint 12
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 36
+Hello this is hint 2
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move UP
+Turn 37
+Hello this is hint 6
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move LEFT
+Turn 38
+Hello this is hint 6
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move UP
+Turn 39
+Hello this is hint 8
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 40
+Hello this is hint 8
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Agent cannot find the optimal path. Let's move UP
+Turn 41
+Hello this is hint 6
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move UP
+Turn 42
+Hello this is hint 7
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+Agent cannot find the optimal path. Let's move LEFT
+Turn 43
+Hello this is hint 10
+Agent cannot find the optimal path. Let's move UP
+Agent cannot find the optimal path. Let's move DOWN
+Turn 44
+Hello this is hint 16
+Agent cannot find the optimal path. Let's move DOWN
+Agent cannot find the optimal path. Let's move LEFT
+Turn 45
+Hello this is hint 16
+Agent cannot find the optimal path. Let's move RIGHT
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 46
+Hello this is hint 10
+Agent cannot find the optimal path. Let's move UP
+Agent cannot find the optimal path. Let's move LEFT
+Turn 47
+Hello this is hint 3
+Agent cannot find the optimal path. Let's move RIGHT
+Agent cannot find the optimal path. Let's move UP
+Turn 48
+Hello this is hint 13
+Agent cannot find the optimal path. Let's move UP
+Agent cannot find the optimal path. Let's move RIGHT
+Turn 49
+Hello this is hint 4
+Agent cannot find the optimal path. Let's move DOWN
+Agent cannot find the optimal path. Let's move UP
+Turn 50
+Hello this is hint 1
+Agent cannot find the optimal path. Let's move UP
+Agent cannot find the optimal path. Let's move UP
+Turn 51
+Hello this is hint 13
+Agent cannot find the optimal path. Let's move RIGHT
+The agent has move RIGHT 4 steps
+Turn 52
+Hello this is hint 9
+The agent has stand still and perform BIG SCAN
+The agent has move UP 4 steps
+Turn 53
+Hello this is hint 10
+The agent has stand still and perform BIG SCAN
+The agent has move RIGHT 2 steps and perform SMALL SCAN
+Turn 54
+Hello this is hint 12
+The agent has stand still and perform BIG SCAN
+The agent has move DOWN 2 steps and perform SMALL SCAN
+Turn 55
+Hello this is hint 5
+The agent has stand still and perform BIG SCAN
+The agent has move RIGHT 2 steps and perform SMALL SCAN
+Turn 56
+Hello this is hint 5
+The agent has stand still and perform BIG SCAN
+Agent cannot find the optimal path. Let's move LEFT

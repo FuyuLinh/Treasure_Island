@@ -27,7 +27,7 @@ class Pirate:
         if x > 0 and 'M' not in str(self.__map.get_data()[x - 1][y]) and '0' not in str(
                 self.__map.get_data()[x - 1][y]):
             top = True
-        if x < self.__map.get_width() - 1 and 'M' not in str(self.__map.get_data()[x + 1][y]) and '0' not in str(
+        if x < self.__map.get_height() - 1 and 'M' not in str(self.__map.get_data()[x + 1][y]) and '0' not in str(
                 self.__map.get_data()[x + 1][y]):
             bottom = True
         if y > 0 and 'M' not in str(self.__map.get_data()[x][y - 1]) and '0' not in str(
@@ -63,7 +63,7 @@ class Pirate:
         elif value_right == min(temp_list):
             y = y + 1
             message = 'Pirate go to the right'
-
+        self.__position.set(x, y)
         return message
 
     def spawn(self):
