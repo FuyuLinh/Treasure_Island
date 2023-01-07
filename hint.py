@@ -419,6 +419,7 @@ class Hint:
 
     # 1 nữa map có kho báu
     def hint_13(self):
+        maps = []
         direction_random = random.randint(1, 2)
         # 2 = vertical boundary
         # 1 = horizontal boundary
@@ -428,7 +429,6 @@ class Hint:
 
         if direction_random == 1:
             if side_random == 1:
-                maps = []
                 for i in range(0, self.__map.get_width()):
                     maps.append([])
                     for j in range(0, self.__map.get_height()):
@@ -436,8 +436,7 @@ class Hint:
                             maps[i].append(1)
                         else:
                             maps[i].append(0)
-            if side_random == 2:
-                maps = []
+            elif side_random == 2:
                 for i in range(0, self.__map.get_width()):
                     maps.append([])
                     for j in range(0, self.__map.get_height()):
@@ -447,7 +446,6 @@ class Hint:
                             maps[i].append(0)
         else:
             if side_random == 1:
-                maps = []
                 for i in range(0, self.__map.get_width()):
                     maps.append([])
                     for j in range(0, self.__map.get_height()):
@@ -455,8 +453,7 @@ class Hint:
                             maps[i].append(1)
                         else:
                             maps[i].append(0)
-            else:
-                maps = []
+            elif side_random == 2:
                 for i in range(0, self.__map.get_width()):
                     maps.append([])
                     for j in range(0, self.__map.get_height()):
@@ -465,3 +462,112 @@ class Hint:
                         else:
                             maps[i].append(0)
         return maps
+
+      def hint_14(self, pirate_X, pirate_Y):
+        # 1 = center of map
+        # 2 = pirate location
+        random_position = random.randint(1,2)
+
+        random_direction = random.randint(1,8)
+        # 1 = N
+        # 2 = S
+        # 3 = W
+        # 4 = E
+        # 5 = NW
+        # 6 = NE
+        # 7 = SW
+        # 8 = SE
+
+        direction_map = []
+        for i in range(0, self.__map.get_width()):
+          direction_map.append([0]*self.__map.get_height())
+
+        # khi xét từ trung tâm của map (center)
+        if random_position == 1:
+          for i in range(0, self.__map.get_width()):
+            for j in range(0, self.__map.get_height()):
+              if random_direction == 1:
+                if i < self.__map.get_width() / 2 and j >= i and j <= self.__map.get_width() - 1 - i:
+                  direction_map[i][j] = 1
+              if random_direction == 2:
+                if i >= self.__map.get_width() / 2 and j <= i and j >= self.__map.get_width() - 1 - i:
+                  direction_map[i][j] = 1
+              if random_direction == 3:
+                if (i < self.__map.get_width() and j <= i) or (i >= self.__map.get_width() and j <= self.__map.get_width() - 1 - i):
+                  direction_map[i][j] = 1
+              if random_direction == 4:
+                if (i < self.__map.get_width() and j >= self.__map.get_width() - 1 - i) or (i >= self.__map.get_width() and j >= i):
+                  direction_map[i][j] = 1
+              if random_direction == 5:
+                if i < self.__map.get_width() / 2 and j < self.__map.get_height() / 2:
+                  direction_map[i][j] = 1
+              if random_direction == 6:
+                if i < self.__map.get_width() / 2 and j >= self.__map.get_height() / 2:
+                  direction_map[i][j] = 1
+              if random_direction == 7:
+                if i >= self.__map.get_width() / 2 and j < self.__map.get_height() / 2:
+                  direction_map[i][j] = 1
+              if random_direction == 8:
+                if i >= self.__map.get_width() / 2 and j >= self.__map.get_height() / 2:
+                  direction_map[i][j] = 1
+        else: # khi xét từ vị trí của pirate
+          for i in range(0, self.__map.get_width()):
+            for j in range(0, self.__map.get_height()):
+              if random_direction == 5:
+                if i <= pirate_X and j <= pirate_Y:
+                  direction_map[i][j] = 1
+              if random_direction == 6:
+                if i <= pirate_X and j >= pirate_Y:
+                  direction_map[i][j] = 1
+              if random_direction == 7:
+                if i >= pirate_X and j <= pirate_Y:
+                  direction_map[i][j] = 1
+              if random_direction == 8:
+                if i >= pirate_X and j >= pirate_Y:
+                  direction_map[i][j] = 1
+        return direction_map
+
+      def hint_15(self):
+        start_big_X = random.randint(0, self.__map.get_width() - 1)
+        end_big_X = random.randint(start_big_X, self.__map.get_width() - 1)
+        start_big_Y = random.randint(0, self.__map.get_height() - 1)
+        end_big_Y = random.randint(start_big_Y, self.__map.get_height() - 1)
+
+        start_small_X = random.randint(start_big_X, end_big_X)
+        end_small_X = random.randint(start_small_X, end_big_X)
+        start_small_Y = random.randint(start_big_Y, end_big_Y)
+        end_small_Y = random.randint(start_small_Y, end_big_Y)
+
+        maps = []
+        for i in range(0, self.__map.get_width()):
+          maps.append([])
+          for j in range(0, self.__map.get_height()):
+            if i < start_small_X:
+              if i >= start_big_X and j >= start_big_Y and j <= end_big_Y:
+                maps[i].append(1)
+              else:
+                maps[i].append(0)
+            if i >= start_small_X and i < end_small_X:
+              if (j >= start_big_Y and j < start_small_Y) or (j > end_small_Y and j <= end_big_Y):
+                maps[i].append(1)
+              else:
+                maps[i].append(0)
+            if i >= end_small_X:
+              if i <= end_big_X and j >= start_big_Y and j <= end_big_Y:
+                maps[i].append(1)
+              else:
+                maps[i].append(0)
+        return maps
+
+    def hint_16(self):
+        maps = []
+        for i in range(0, self.__map.get_width()):
+            maps.append([])
+        for j in range(0, self.__map.get_height()):
+            if 'M' in str(self.__map.get_data()[i][j]):
+                 maps[i].append(1)
+            else:
+                maps[i].append(0)
+        return maps
+
+
