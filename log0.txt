@@ -1,0 +1,11 @@
+9
+WIN
+Hello this is hint 9
+Turn0
+Hello this is hint 10
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint 0
+Turn1
+Hello this is hint 8
+The agent choose to use hint 0
+The agent has move DOWN 4 steps

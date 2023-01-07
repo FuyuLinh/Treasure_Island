@@ -1,0 +1,39 @@
+37
+WIN
+Turn 0
+The agent spawn at 60 26
+The pirate is free at the beginning of the 81th turn
+Hello this is hint 5
+Turn 1
+Hello this is hint 10
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+The agent has move UP 4 steps
+Turn 2
+The pirate at 52 57
+Hello this is hint 12
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Turn 3
+Hello this is hint 7
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+The agent has move UP 4 steps
+Turn 4
+Hello this is hint 16
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Turn 5
+Hello this is hint 6
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+The agent has move UP 4 steps
+Turn 6
+Hello this is hint 16
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint  0 in queue to verify. IsTrue = False
+Turn 7
+Hello this is hint 9
+The agent choose to use hint  0 in queue to verify. IsTrue = True
+The agent has move UP 4 steps
+Turn 8
+Hello this is hint 3
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint  0 in queue to verify. IsTrue = False

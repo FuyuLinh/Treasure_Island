@@ -1,0 +1,23 @@
+21
+WIN
+Hello this is hint 3
+Turn0
+Hello this is hint 11
+The agent choose to use hint 0
+The agent has just TELEPORTED. What a magic move +_+
+Turn1
+Hello this is hint 5
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint 0
+Turn2
+Hello this is hint 6
+The agent choose to use hint 0
+The agent has move UP 4 steps
+Turn3
+Hello this is hint 5
+The agent has stand still and perform BIG SCAN
+The agent choose to use hint 0
+Turn4
+Hello this is hint 13
+The agent has move RIGHT 4 steps
+The agent has stand still and perform BIG SCAN
