@@ -341,7 +341,7 @@ def main(width, height):
     # map[treasureX][treasureY] = str(map[treasureX][treasureY]) + "T"
     turn_reveal = numpy.random.randint(2, 4)
     turn_free = int((width * height) / 50)
-    if (turn_free <= turn_reveal):
+    if turn_free <= turn_reveal:
         turn_free = turn_reveal + 1
     # print_map(map)
     generate(index, width, height, turn_reveal, turn_free, region, treasureX, treasureY, map)
