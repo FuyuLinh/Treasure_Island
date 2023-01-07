@@ -5,7 +5,7 @@ import pygame
 from agent.agent import Agent
 from hint import Hint
 from maps.map import read_input
-from ui.UI import draw_grid, redraw
+from ui.UI import draw_grid, redraw, START_MAP, draw_log
 
 
 def is_win(knowledge_map, treasure):
@@ -30,19 +30,21 @@ if __name__ == '__main__':
     # map_game.get_height()
 
     pygame.init()
-    screen = pygame.display.set_mode((1200, 840))
+    screen = pygame.display.set_mode((1300, 840))
     clock = pygame.time.Clock()
-
+    log = []
     start_map = [0, 0]
     draw_grid(screen)
+    draw_log(screen, 850, START_MAP)
     agent = Agent(map_game)
     agent.init_map()
     agent.spawn()
+    turn = 0
     while not is_win(agent.get_agent_map(), map_game.get_treasure()):
         # TODO: set knowledge_map here
 
         # TODO: set location of agent here
-
+        log.append('Turn'+ str(turn))
         treasure = map_game.get_treasure()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -61,8 +63,8 @@ if __name__ == '__main__':
                     hint = Hint(map_game)
                     agent.receive_hint(hint)
                     print(hint.get_message())
-                    if not agent.action():
-                        break
+                    log.append(agent.action())
+                    log.append(agent.action())
                     print(agent.get_coordinate().get_x(), agent.get_coordinate().get_y())
                     if map_game.get_height() - 1 - agent.get_coordinate().get_x() < 8:
                         start_map[0] = map_game.get_height() - 16
@@ -81,6 +83,7 @@ if __name__ == '__main__':
         pygame.display.update()
         time.sleep(1)
         clock.tick(60)
-
+        turn += 1
     if is_win(agent.get_agent_map(), map_game.get_treasure()):
         print('Victory')
+    print(log)
