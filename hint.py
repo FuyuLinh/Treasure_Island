@@ -267,7 +267,7 @@ class Hint:
 
     return result_map
 
-    # kho báu nằm đâu đó ở biên giới của 2 vùng giao nhau
+  # kho báu nằm đâu đó ở biên giới của 2 vùng giao nhau
   def hint_11(self, main_map, width, height):
     #chuyển 2T -> 2, 4M -> 4,...
     maps = []
@@ -295,9 +295,122 @@ class Hint:
 
     return boundary_map
 
+  # kho báu ở đâu đó trong 1 - 3 ô tính từ biển
+  def hint_12(self, main_map, width, height):
+    random_tiles = random.randint(1,3)
 
+    boundary_map = []
+    for i in range(0, width):
+      boundary_map.append([])
+      for j in range(0, height):
+        if i > 0 and main_map[i][j] != 0 and main_map[i - 1][j] == 0:
+          boundary_map[i].append(1)
+        elif i < width - 1 and main_map[i][j] != 0 and main_map[i + 1][j] == 0:
+          boundary_map[i].append(1)
+        elif j > 0 and main_map[i][j] != 0 and main_map[i][j - 1] == 0:
+          boundary_map[i].append(1)
+        elif j < height - 1 and main_map[i][j] != 0 and main_map[i][j + 1] == 0:
+          boundary_map[i].append(1)
+        else:
+          boundary_map[i].append(0)
     
- 
+    if random_tiles == 2 or random_tiles == 3:
+      for i in range(0, width):
+        for j in range(0, height):
+          if i > 1 and main_map[i][j] != 0 and main_map[i - 2][j] == 0:
+            boundary_map[i][j] = 1
+          elif i < width - 2 and main_map[i][j] != 0 and main_map[i + 2][j] == 0:
+            boundary_map[i][j] = 1
+          elif j > 1 and main_map[i][j] != 0 and main_map[i][j - 2] == 0:
+            boundary_map[i][j] = 1
+          elif j < height - 2 and main_map[i][j] != 0 and main_map[i][j + 2] == 0:
+            boundary_map[i][j] = 1
+
+    if random_tiles == 3:
+      for i in range(0, width):
+        for j in range(0, height):
+          if i > 2 and main_map[i][j] != 0 and main_map[i - 3][j] == 0:
+            boundary_map[i][j] = 1
+          elif i < width - 3 and main_map[i][j] != 0 and main_map[i + 3][j] == 0:
+            boundary_map[i][j] = 1
+          elif j > 2 and main_map[i][j] != 0 and main_map[i][j - 3] == 0:
+            boundary_map[i][j] = 1
+          elif j < height - 3 and main_map[i][j] != 0 and main_map[i][j + 3] == 0:
+            boundary_map[i][j] = 1
+    return boundary_map
+    
+  # 1 nữa map có kho báu
+  def hint_13(self, width, height):
+    direction_random = random.randint(1,2)
+    # 2 = vertical boundary
+    # 1 = horizontal boundary
+    side_random = random.randint(1,2)
+    # 1 = left or top
+    # 2 = right or bottom
+
+    if direction_random == 1:
+      if side_random == 1:
+        maps = []
+        for i in range(0, width):
+          maps.append([])
+          for j in range(0, height):
+            if i < int(width / 2):
+              maps[i].append(1)
+            else:
+              maps[i].append(0)
+      if side_random == 2:
+        maps = []
+        for i in range(0, width):
+          maps.append([])
+          for j in range(0, height):
+            if i > int((width - 1) / 2):
+              maps[i].append(1)
+            else:
+              maps[i].append(0)
+    else:
+      if side_random == 1:
+        maps = []
+        for i in range(0, width):
+          maps.append([])
+          for j in range(0, height):
+            if j < int(height  / 2):
+              maps[i].append(1)
+            else:
+              maps[i].append(0)
+      else:
+        maps = []
+        for i in range(0, width):
+          maps.append([])
+          for j in range(0, height):
+            if j > int((height - 1)  / 2):
+              maps[i].append(1)
+            else:
+              maps[i].append(0)
+    return maps
+
+  def hint_14(self, width, height):
+    # 1 = center of map
+    # 2 = pirate location
+    random_position = random.randint(1,2)
+    
+    random_direction = random.randint(1,8)
+    # 1 = N
+    # 2 = S
+    # 3 = W
+    # 4 = E
+    # 5 = NW
+    # 6 = NE
+    # 7 = SW
+    # 8 = SE
+
+    direction_map = []
+    for i in range(0, width):
+      direction_map[i].append([])
+
+    for i in range(0, width):
+      for j in range(0, height):
+        
+
 
 
 
