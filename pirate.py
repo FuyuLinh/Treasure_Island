@@ -13,10 +13,12 @@ class Pirate:
 
     def get_coordinate(self):
         return self.__position
+    def get_position(self):
+        return self.__position
     def move(self):
         x = self.__position.get_x()
         y = self.__position.get_y()
-        top, bottom, left, right = False
+        top = bottom = left = right = False
         value_top = -1
         value_bottom = -1
         value_left = -1

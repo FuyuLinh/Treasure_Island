@@ -106,12 +106,12 @@ class Agent:
 
     def __calculate_hint_point(self, hint):
         sum_point = 0
-        for i in range(0, self.__map.get_height()-1):
-            for j in range(0, self.__map.get_width()-1):
+        for i in range(0, self.__map.get_height()):
+            for j in range(0, self.__map.get_width()):
                 if hint.get_hint_map()[i][j] == 0 and self.__agent_map[i][j] != "-":
                     sum_point += 1
-        for i in range(0, self.__map.get_height()-1):
-            for j in range(0, self.__map.get_width()-1):
+        for i in range(0, self.__map.get_height()-2):
+            for j in range(0, self.__map.get_width()-2):
                 if hint.get_hint_map()[i][j] == 1 and self.__agent_map[i][j] != "-":
                     sum_point += 1
         return sum_point / 2
@@ -183,10 +183,11 @@ class Agent:
 
         # Examine verify hint
         for i in range(len(self.__hint)):
-            if self.__calculate_hint_point(self.__hint[i]) > 25:
-                recored_dir = 6
-                step = i
-                break
+            if(len(self.__hint)>0):
+                if self.__calculate_hint_point(self.__hint[i]) > 25:
+                    recored_dir = 6
+                    step = i
+                    break
 
         if (recored_dir == 0):
             # print("Record_dir:", recored_dir)
@@ -199,7 +200,6 @@ class Agent:
         # print("Record taken:", recored_dir)
         if recored_dir == 0:
             self.__scan(2)
-            print("Stand and scan")
             return "The agent has stand still and perform BIG SCAN"
 
         # Move up
@@ -207,9 +207,7 @@ class Agent:
             self.__move(0, step)
             if step == 1 or step == 2:
                 self.__scan(1)
-                print("Move up", step)
                 return "The agent has move UP " + str(step) + " steps and perform SMALL SCAN"
-            print("Move up", step)
             return "The agent has move UP " + str(step) + " steps"
 
         # Move down
@@ -217,9 +215,7 @@ class Agent:
             self.__move(1, step)
             if step == 1 or step == 2:
                 self.__scan(1)
-                print("Move down", step)
                 return "The agent has move DOWN " + str(step) + " steps and perform SMALL SCAN"
-            print("Move down", step)
             return "The agent has move DOWN " + str(step) + " steps"
 
         # Move right
@@ -227,9 +223,7 @@ class Agent:
             self.__move(3, step)
             if step == 1 or step == 2:
                 self.__scan(1)
-                print("Move right", step)
                 return "The agent has move RIGHT " + str(step) + " steps and perform SMALL SCAN"
-            print("Move right", step)
             return "The agent has move RIGHT " + str(step) + " steps"
 
         # Move left
@@ -237,39 +231,32 @@ class Agent:
             self.__move(2, step)
             if step == 1 or step == 2:
                 self.__scan(1)
-                print("Move left", step)
                 return "The agent has move LEFT " + str(step) + " steps and perform SMALL SCAN"
-            print("Move left", step)
             return "The agent has move LEFT " + str(step) + " steps"
 
         # Teleport
         elif recored_dir == 5 and self.__teleport:
-            print("teleport :)))")
             self.__teleport()
             self.__teleport = False
-            print("You have teleported")
             return "The agent has just TELEPORTED. What a magic move +_+"
 
         # Verify_hint
         elif recored_dir == 6:
             self.merge_hint(self.__hint[step])
+            isTrue = self.__hint[step].verify_hint()
             self.__hint.pop(step)
-            return "The agent choose to use hint " + str(step)
+            return f'The agent choose to use hint  {step} in queue to verify. IsTrue = {isTrue}'
 
         else:
             a = int(random.randint(0, 3))
             self.__move(a, 2)
             if a == 0:
-                print("Random to up")
                 return "Agent cannot find the optimal path. Let's move UP"
             if a == 1:
-                print("Random to down")
                 return "Agent cannot find the optimal path. Let's move DOWN"
             if a == 2:
-                print("Random to left")
                 return "Agent cannot find the optimal path. Let's move LEFT"
             if a == 3:
-                print("Random to right")
                 return "Agent cannot find the optimal path. Let's move RIGHT"
 
     def __teleport(self):

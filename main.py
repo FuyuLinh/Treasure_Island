@@ -13,6 +13,10 @@ def is_win(knowledge_map, treasure):
     if knowledge_map[treasure.get_x()][treasure.get_y()] == '-':
         return True
     return False
+def is_lose(pirate,treasure):
+    if pirate.get_position().get_x() == treasure.get_x() and pirate.get_position().get_y() == treasure.get_y():
+        return True
+    return False
 
 
 def print_log(index, string, result):
@@ -26,7 +30,8 @@ def print_log(index, string, result):
     f.close()
 
 if __name__ == '__main__':
-    turn_reveals, turn_free, map_game = read_input('data/Map2.txt')
+    index = 2
+    turn_reveals, turn_free, map_game = read_input(f'data/Map{index}.txt')
     # TODO: get treasure location
     # map_game.get_treasure().get_x()
     # map_game.get_treasure().get_y()
@@ -52,39 +57,39 @@ if __name__ == '__main__':
     agent.spawn()
     pirate = Pirate(map_game)
     pirate.spawn()
-    turn = 0
+    turn = 1
     while True:
         hint = Hint(map_game,pirate,agent)
         if hint.verify_hint():
+            log.append('Turn 0')
+            log.append(f'The agent spawn at {agent.get_coordinate().get_x()} {agent.get_coordinate().get_y()}')
+            log.append(f'The pirate is free at the beginning of the {turn_free}th turn')
             log.append(hint.get_message())
             agent.merge_hint(hint)
             break
 
-    while not is_win(agent.get_agent_map(), map_game.get_treasure()):
+    while not (is_win(agent.get_agent_map(), map_game.get_treasure()) or is_lose(pirate,map_game.get_treasure())):
         # TODO: set knowledge_map here
 
         # TODO: set location of agent here
-        log.append('Turn'+ str(turn))
+        log.append('Turn '+ str(turn))
         treasure = map_game.get_treasure()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-            if event.type == pygame.KEYDOWN:
-                # TODO: move screen
-                if event.key == pygame.K_UP and start_map[0] > 0:
-                    start_map[0] -= 1
-                if event.key == pygame.K_DOWN and start_map[0] + 15 < map_game.get_height() - 1:
-                    start_map[0] += 1
-                if event.key == pygame.K_LEFT and start_map[1] > 0:
-                    start_map[1] -= 1
-                if event.key == pygame.K_RIGHT and start_map[1] + 15 < map_game.get_height() - 1:
-                    start_map[1] += 1
+
+        if turn_reveals == turn:
+            log.append(f'The pirate at {pirate.get_position().get_x()} {pirate.get_position().get_y()}')
+        if turn == turn_free:
+            log.append(f'The pirate free')
+        if turn > turn_free:
+            log.append(f'{pirate.move()} then {pirate.move()}')
         hint = Hint(map_game,pirate,agent)
         agent.receive_hint(hint)
         log.append(hint.get_message())
         log.append(agent.action())
         log.append(agent.action())
-        print(agent.get_coordinate().get_x(), agent.get_coordinate().get_y())
+        print(f'The pirate at {pirate.get_position().get_x()} {pirate.get_position().get_y()}')
         if map_game.get_height() - 1 - agent.get_coordinate().get_x() < 8:
             start_map[0] = map_game.get_height() - 16
         elif agent.get_coordinate().get_x() < 7:
@@ -103,4 +108,11 @@ if __name__ == '__main__':
         time.sleep(0.1)
         clock.tick(60)
         turn += 1
-    print_log(2,log,"WIN")
+    if is_win(agent.get_agent_map(), map_game.get_treasure()):
+        print_log(index,log,"WIN")
+    if is_lose(pirate,map_game.get_treasure()):
+        print_log(index, log, "LOSE")
+
+    del agent
+    del pirate
+    del map_game
