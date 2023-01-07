@@ -6,13 +6,15 @@ import pygame
 
 
 def is_win(knowledge_map, treasure):
-    if knowledge_map[treasure.get_x()][treasure.get_y()] == 1:
+    if knowledge_map[treasure.get_x()][treasure.get_y()] == '1':
         return True
     return False
 
+from agent.agent import Agent
+import mapGenerate
 
 if __name__ == '__main__':
-    turn_reveals, turn_free, map_game = read_input('data/Map0.txt')
+    turn_reveals, turn_free, map_game = read_input('data/Map2.txt')
     # TODO: get treasure location
     # map_game.get_treasure().get_x()
     # map_game.get_treasure().get_y()
@@ -32,12 +34,11 @@ if __name__ == '__main__':
 
     start_map = [0, 0]
     draw_grid(screen)
-    agent = Position(5, 10)
+    agent = Agent(map_game)
+    agent.init_map()
+    agent.spawn()
     while True:
-        x = agent.get_x()
-        y = agent.get_y()
         # TODO: set knowledge_map here
-        knowledge_map = []
 
         # TODO: set location of agent here
 
@@ -47,17 +48,17 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 pygame.quit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+
+
                     # TODO: game run in here
-                    print("game turn")
-                if event.key == pygame.K_w and x > 0:
-                    agent.set(x-1, y)
-                if event.key == pygame.K_s and agent.get_x() < map_game.get_height() - 1:
-                    agent.set(agent.get_x()+1, agent.get_y())
-                if event.key == pygame.K_a and agent.get_y() > 0:
-                    agent.set(agent.get_x(), agent.get_y()-1)
-                if event.key == pygame.K_d and agent.get_y() < map_game.get_height() - 1:
-                    agent.set(agent.get_x(), agent.get_y()+1)
+                # if event.key == pygame.K_w and x > 0:
+                #     agent.set(x-1, y)
+                # if event.key == pygame.K_s and agent.get_x() < map_game.get_height() - 1:
+                #     agent.set(agent.get_x()+1, agent.get_y())
+                # if event.key == pygame.K_a and agent.get_y() > 0:
+                #     agent.set(agent.get_x(), agent.get_y()-1)
+                # if event.key == pygame.K_d and agent.get_y() < map_game.get_height() - 1:
+                #     agent.set(agent.get_x(), agent.get_y()+1)
 
                 # TODO: move screen
                 if event.key == pygame.K_UP and start_map[0] > 0:
@@ -68,7 +69,26 @@ if __name__ == '__main__':
                     start_map[1] -= 1
                 if event.key == pygame.K_RIGHT and start_map[1] + 15 < map_game.get_height() - 1:
                     start_map[1] += 1
-
-        redraw(start_map, screen, map_game.get_data(), map_game.get_region(), agent, knowledge_map, treasure)
+        if agent.action() == False:
+            break
+        print(agent.get_coordinate().get_x(), agent.get_coordinate().get_y())
+        if map_game.get_height() - 1 - agent.get_coordinate().get_x() < 8:
+            start_map[0] = map_game.get_height() - 16
+        elif agent.get_coordinate().get_x() < 7:
+            start_map[0] = 0
+        else:
+            start_map[0] = agent.get_coordinate().get_x() - 7
+        if map_game.get_width() - 1 - agent.get_coordinate().get_y() < 8:
+            start_map[1] = map_game.get_width() - 16
+        elif agent.get_coordinate().get_y() < 7:
+            start_map[1] = 0
+        else:
+            start_map[1] = agent.get_coordinate().get_y() - 7
+        print(start_map)
+        redraw(start_map, screen, map_game.get_data(), map_game.get_region(), agent.get_coordinate(), agent.get_agent_map(), treasure)
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(10000)
+
+    if is_win(agent.get_agent_map(), map_game.get_treasure()):
+        print('Victory')
+
