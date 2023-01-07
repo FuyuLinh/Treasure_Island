@@ -461,14 +461,42 @@ class Hint:
     start_small_X = random.randint(start_big_X, end_big_X)
     end_small_X = random.randint(start_small_X, end_big_X)
     start_small_Y = random.randint(start_big_Y, end_big_Y)
-    
+    end_small_Y = random.randint(start_small_Y, end_big_Y)
 
     maps = []
     for i in range(0, width):
       maps.append([])
       for j in range(0, height):
-        if i > random_start_square_smaller:
-          if i <= random_start_square_bigger and j >= :
+        if i < start_small_X:
+          if i >= start_big_X and j >= start_big_Y and j <= end_big_Y:
+            maps[i].append(1)
+          else:
+            maps[i].append(0)
+        if i >= start_small_X and i < end_small_X:
+          if (j >= start_big_Y and j < start_small_Y) or (j > end_small_Y and j <= end_big_Y):
+            maps[i].append(1)
+          else:
+            maps[i].append(0)
+        if i >= end_small_X:
+          if i <= end_big_X and j >= start_big_Y and j <= end_big_Y:
+            maps[i].append(1)
+          else:
+            maps[i].append(0)
+    return maps
+
+  def hint_16(self, main_maps, width, height):
+    maps = []
+    
+    for i in range(0, width):
+      maps.append([])
+      for j in range(0, height):
+        if 'M' in str(main_maps[i][j]):
+          maps[i].append(1)
+        else:
+          maps[i].append(0)
+    return maps
+
+    
 
 
 
