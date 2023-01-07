@@ -1,4 +1,6 @@
 import random
+
+from agent.agent import Agent
 from maps.map import Map
 import math
 
@@ -10,12 +12,13 @@ class Hint:
     __message = ''
     __map = Map(None, None, None, None, None)
     __pirate = Pirate(None)
-
+    __agent = Agent(None)
     # hint_map có dạng mảng 2D int; 1: có kho báu, 0: không có kho báu
     # __map is the main map from data
-    def __init__(self, map, pirate):
+    def __init__(self, map, pirate,agent):
         self.__map = map
         self.__pirate = pirate
+        self.__agent = agent
         choose = random.randint(1, 16)
         if choose == 1:
             self.__hint_map = self.hint_01()
@@ -166,6 +169,7 @@ class Hint:
     # diện tích lớn hình chữ nhật có kho báu
     def hint_05(self):
         width_random = random.randint(round(float(self.__map.get_width()) / 2), self.__map.get_width())
+
         height_random = random.randint(round(float(self.__map.get_height()) / 2), self.__map.get_height())
         start_width_random = random.randint(0, self.__map.get_width() - width_random - 1)
         start_height_random = random.randint(0, self.__map.get_height() - height_random - 1)
@@ -200,16 +204,16 @@ class Hint:
     # agent gần kho báu hơn
     # khi veryfi sẽ loại bỏ các vị trí đánh dấu là có kho báu mà gần pirate hơn agent, nếu hint đúng
     # = khoảng cách thì vẫn tính là gần pirate và xa agent
-    def hint_07(self, agent_X, agent_Y, pirate_X, pirate_Y, treasure_X, treasure_Y):
-        diagonal_agent = math.sqrt(abs(agent_X - treasure_X) ** 2 + abs(agent_Y - treasure_Y) ** 2)
-        diagonal_pirate = math.sqrt(abs(pirate_X - treasure_X) ** 2 + abs(pirate_Y - treasure_Y) ** 2)
+    def hint_07(self):
+        diagonal_agent = math.sqrt(abs(self.__agent.get_coordinate().get_x() - self.__map.get_treasure().get_x()) ** 2 + abs(self.__agent.get_coordinate().get_y() - self.__map.get_treasure().get_y()) ** 2)
+        diagonal_pirate = math.sqrt(abs(self.__pirate.get_coordinate().get_x() - self.__map.get_treasure().get_y()) ** 2 + abs(self.__pirate.get_coordinate().get_x() - self.__map.get_treasure().get_y()) ** 2)
 
         maps = []
         for i in range(0, self.__map.get_width()):
             maps.append([])
             for j in range(0, self.__map.get_height()):
-                location_to_agent = math.sqrt(abs(agent_X - i) ** 2 + abs(agent_Y - j) ** 2)
-                location_to_pirate = math.sqrt(abs(pirate_X - i) ** 2 + abs(pirate_Y - j) ** 2)
+                location_to_agent = math.sqrt(abs(self.__agent.get_coordinate().get_x() - i) ** 2 + abs(self.__agent.get_coordinate().get_y() - j) ** 2)
+                location_to_pirate = math.sqrt(abs(self.__pirate.get_coordinate().get_x() - i) ** 2 + abs(self.__pirate.get_coordinate().get_y() - j) ** 2)
                 if location_to_agent >= location_to_pirate:
                     maps[i].append(0)
                 else:

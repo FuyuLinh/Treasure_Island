@@ -1,10 +1,6 @@
-from hint import Hint
 from maps.position import Position
 from maps.map import Map
 import random
-import math
-import sys
-import numpy as np
 
 
 class Agent:
@@ -76,7 +72,7 @@ class Agent:
                 step = step - 1
         self.__coordinate.set(x, y)
 
-    def merge_hint(self,hint):
+    def merge_hint(self, hint):
         if hint.verify_hint():
             for i in range(0, self.__map.get_height()):
                 for j in range(0, self.__map.get_width()):
@@ -110,15 +106,15 @@ class Agent:
 
     def __calculate_hint_point(self, hint):
         sum_point = 0
-        for i in range(0, self.__map.get_height()):
-            for j in range(0, self.__map.get_width()):
+        for i in range(0, self.__map.get_height()-1):
+            for j in range(0, self.__map.get_width()-1):
                 if hint.get_hint_map()[i][j] == 0 and self.__agent_map[i][j] != "-":
                     sum_point += 1
-        for i in range(0, self.__map.get_height()):
-            for j in range(0, self.__map.get_width()):
+        for i in range(0, self.__map.get_height()-1):
+            for j in range(0, self.__map.get_width()-1):
                 if hint.get_hint_map()[i][j] == 1 and self.__agent_map[i][j] != "-":
                     sum_point += 1
-        return sum_point /2
+        return sum_point / 2
 
     def __choose_action(self):
         map = self.__map.get_data()
