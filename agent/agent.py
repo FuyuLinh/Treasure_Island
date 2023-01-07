@@ -167,10 +167,11 @@ class Agent:
                 max_count = current_count
                 recored_dir = 4
 
-        # Verify hint
+        # Examine verify hint
         for i in range(len(self.__hint)):
             if self.__calculate_hint_point(self.__hint[i]) > 25:
                 recored_dir = 6
+                step = i
                 break
 
         if (recored_dir == 0):
@@ -238,6 +239,7 @@ class Agent:
         # Verify_hint
         elif recored_dir == 6:
             self.merge_hint()
+            return "The agent choose to use hint " + str(step)
 
         else:
             a = int(random.randint(0, 3))
