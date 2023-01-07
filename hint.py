@@ -144,7 +144,7 @@ class Hint:
     return maps
 
   # hàng hoặc\và cột có chứa kho báu
-  def hint_08(sefl, width, height):
+  def hint_08(self, width, height):
     choose_random = random.randint(1,3)
     maps = []
     col_random = random.randint(0, height - 1)
@@ -178,7 +178,7 @@ class Hint:
     return maps
 
   # hàng hoặc\và cột không có chứa kho báu
-  def hint_09(sefl, width, height):
+  def hint_09(self, width, height):
     choose_random = random.randint(1,3)
     maps = []
     col_random = random.randint(0, height - 1)
@@ -388,7 +388,7 @@ class Hint:
               maps[i].append(0)
     return maps
 
-  def hint_14(self, width, height):
+  def hint_14(self, width, height, pirate_X, pirate_Y):
     # 1 = center of map
     # 2 = pirate location
     random_position = random.randint(1,2)
@@ -405,11 +405,72 @@ class Hint:
 
     direction_map = []
     for i in range(0, width):
-      direction_map[i].append([])
+      direction_map.append([0]*height)
 
+    # khi xét từ trung tâm của map (center)
+    if random_position == 1:
+      for i in range(0, width):
+        for j in range(0, height):
+          if random_direction == 1:
+            if i < width / 2 and j >= i and j <= width - 1 - i:
+              direction_map[i][j] = 1
+          if random_direction == 2:
+            if i >= width / 2 and j <= i and j >= width - 1 - i:
+              direction_map[i][j] = 1
+          if random_direction == 3:
+            if (i < width and j <= i) or (i >= width and j <= width - 1 - i):
+              direction_map[i][j] = 1
+          if random_direction == 4:
+            if (i < width and j >= width - 1 - i) or (i >= width and j >= i):
+              direction_map[i][j] = 1
+          if random_direction == 5:
+            if i < width / 2 and j < height / 2:
+              direction_map[i][j] = 1
+          if random_direction == 6:
+            if i < width / 2 and j >= height / 2:
+              direction_map[i][j] = 1
+          if random_direction == 7:
+            if i >= width / 2 and j < height / 2:
+              direction_map[i][j] = 1
+          if random_direction == 8:
+            if i >= width / 2 and j >= height / 2:
+              direction_map[i][j] = 1
+    else: # khi xét từ vị trí của pirate
+      for i in range(0, width):
+        for j in range(0, height):
+          if random_direction == 5:
+            if i <= pirate_X and j <= pirate_Y:
+              direction_map[i][j] = 1
+          if random_direction == 6:
+            if i <= pirate_X and j >= pirate_Y:
+              direction_map[i][j] = 1
+          if random_direction == 7:
+            if i >= pirate_X and j <= pirate_Y:
+              direction_map[i][j] = 1
+          if random_direction == 8:
+            if i >= pirate_X and j >= pirate_Y:
+              direction_map[i][j] = 1
+    return direction_map
+
+  def hint_15(self, width, height):
+    start_big_X = random.randint(0, width - 1)
+    end_big_X = random.randint(start_big_X, width - 1)
+    start_big_Y = random.randint(0, height - 1)
+    end_big_Y = random.randint(start_big_Y, height - 1)
+
+    start_small_X = random.randint(start_big_X, end_big_X)
+    end_small_X = random.randint(start_small_X, end_big_X)
+    start_small_Y = random.randint(start_big_Y, end_big_Y)
+    
+
+    maps = []
     for i in range(0, width):
+      maps.append([])
       for j in range(0, height):
-        
+        if i > random_start_square_smaller:
+          if i <= random_start_square_bigger and j >= :
+
+
 
 
 
