@@ -62,7 +62,7 @@ if __name__ == '__main__':
                 if event.key == pygame.K_SPACE:
                     hint = Hint(map_game)
                     agent.receive_hint(hint)
-                    print(hint.get_message())
+                    log.append(hint.get_message())
                     log.append(agent.action())
                     log.append(agent.action())
                     print(agent.get_coordinate().get_x(), agent.get_coordinate().get_y())

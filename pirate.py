@@ -1,10 +1,11 @@
+from maps.map import Map
+from maps.position import Position
+
+
 class Pirate:
-  __X = None
-  __Y = None
+    __position = Position(None, None)
+    __map = Map(None, None, None, None, None)
   
-  def __init__(self,x,y) :
-    self.__X = x
-    self.__Y = y
 
 
 

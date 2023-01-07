@@ -2,18 +2,21 @@ import random
 from maps.map import Map
 import math
 
+from pirate import Pirate
+
 
 class Hint:
     __hint_map = []
     __message = ''
     __map = Map(None, None, None, None, None)
+    __pirate = Pirate(None)
 
     # hint_map có dạng mảng 2D int; 1: có kho báu, 0: không có kho báu
     # __map is the main map from data
-    def __init__(self, __map):
-        self.__map = __map
-        # choose = random.randint(1, 16)
-        choose = 1
+    def __init__(self, map, pirate):
+        self.__map = map
+        self.__pirate = pirate
+        choose = random.randint(1, 16)
         if choose == 1:
             self.__hint_map = self.hint_01()
             self.__message = "Hello this is hint 1"
@@ -463,11 +466,10 @@ class Hint:
                             maps[i].append(0)
         return maps
 
-      def hint_14(self, pirate_X, pirate_Y):
+    def hint_14(self):
         # 1 = center of map
         # 2 = pirate location
         random_position = random.randint(1,2)
-
         random_direction = random.randint(1,8)
         # 1 = N
         # 2 = S
@@ -514,20 +516,20 @@ class Hint:
           for i in range(0, self.__map.get_width()):
             for j in range(0, self.__map.get_height()):
               if random_direction == 5:
-                if i <= pirate_X and j <= pirate_Y:
+                if i <= self.__pirate.getPosition().get_x() and j <= self.__pirate.getPosition().get_y():
                   direction_map[i][j] = 1
               if random_direction == 6:
-                if i <= pirate_X and j >= pirate_Y:
+                if i <= self.__pirate.getPosition().get_x() and j >= self.__pirate.getPosition().get_y():
                   direction_map[i][j] = 1
               if random_direction == 7:
-                if i >= pirate_X and j <= pirate_Y:
+                if i >= self.__pirate.getPosition().get_x() and j <= self.__pirate.getPosition().get_y():
                   direction_map[i][j] = 1
               if random_direction == 8:
-                if i >= pirate_X and j >= pirate_Y:
+                if i >= self.__pirate.getPosition().get_x() and j >= self.__pirate.getPosition().get_y():
                   direction_map[i][j] = 1
         return direction_map
 
-      def hint_15(self):
+    def hint_15(self):
         start_big_X = random.randint(0, self.__map.get_width() - 1)
         end_big_X = random.randint(start_big_X, self.__map.get_width() - 1)
         start_big_Y = random.randint(0, self.__map.get_height() - 1)
