@@ -1,3 +1,4 @@
+from hint import Hint
 from maps.position import Position
 from maps.map import Map
 import random
@@ -5,14 +6,16 @@ import math
 import sys
 import numpy as np
 
+
 class Agent:
     __hint = []
     __coordinate = Position(None, None)
     __agent_map = []
     __map = Map(None, None, None, None, None)
     __teleport = True
-    # Map that agent can see (0 for any tile that has not been discovered, 
-    # -1 for those that has bee discovered)
+
+    # Map that agent can see (0 for any tile that has not been discovered,
+    # -1 for those that has been discovered)
 
     def __init__(self, map):
         self.__map = map
@@ -22,6 +25,9 @@ class Agent:
 
     def get_coordinate(self):
         return self.__coordinate
+
+    def receive_hint(self, hint):
+        self.__hint.append(hint)
 
     def init_map(self):
         for x in range(self.__map.get_height()):
@@ -39,40 +45,48 @@ class Agent:
                 self.__agent_map[x][y] = '-'
                 return self.__coordinate.set(x, y)
 
-
     def __move(self, direction, step):
         map = self.__map.get_data()
         x = self.__coordinate.get_x()
         y = self.__coordinate.get_y()
         while (step > 0):
-            if (direction == 0): # Up
+            if (direction == 0):  # Up
                 if x == 0 or 'M' in map[x - 1][y] or map[x - 1][y] == '0':
                     break
                 x = x - 1
                 self.__agent_map[x][y] = '-'
                 step = step - 1
-            elif (direction == 1): # Down
+            elif (direction == 1):  # Down
                 if x == self.__map.get_height() - 1 or 'M' in map[x + 1][y] or map[x + 1][y] == '0':
                     break
                 x = x + 1
                 self.__agent_map[x][y] = '-'
                 step = step - 1
-            elif (direction == 2): # Left
-                if y == 0 or 'M' in map[x][y-1] or map[x][y-1] == '0':
+            elif (direction == 2):  # Left
+                if y == 0 or 'M' in map[x][y - 1] or map[x][y - 1] == '0':
                     break
                 y = y - 1
                 self.__agent_map[x][y] = '-'
                 step = step - 1
-            elif (direction == 3): # Right
-                if y == self.__map.get_width() - 1 or 'M' in map[x][y+1] or map[x][y+1] == '0':
+            elif (direction == 3):  # Right
+                if y == self.__map.get_width() - 1 or 'M' in map[x][y + 1] or map[x][y + 1] == '0':
                     break
                 y = y + 1
                 self.__agent_map[x][y] = '-'
                 step = step - 1
         self.__coordinate.set(x, y)
 
-    def merge_hint():
-        a = str
+    def merge_hint(self,hint):
+        if hint.verify_hint():
+            for i in range(0, self.__map.get_height()):
+                for j in range(0, self.__map.get_width()):
+                    if hint.get_hint_map()[i][j] == 0 and self.__agent_map[i][j] != "-":
+                        self.__agent_map[i][j] = "-"
+        else:
+            for i in range(0, self.__map.get_height()):
+                for j in range(0, self.__map.get_width()):
+                    if hint.get_hint_map()[i][j] == 1 and self.__agent_map[i][j] != "-":
+                        self.__agent_map[i][j] = "-"
 
     def __scan(self, type):
         x = self.__coordinate.get_x()
@@ -82,7 +96,7 @@ class Agent:
                 if i < 0 or j < 0 or i > self.__map.get_height() - 1 or j > self.__map.get_width() - 1:
                     continue
                 self.__agent_map[i][j] = '-'
-    
+
     def __calculate_point(self, x, y):
         sum_point = 0
         for i in range(x - 2, x + 3):
@@ -96,16 +110,20 @@ class Agent:
 
     def __calculate_hint_point(self, hint):
         sum_point = 0
-        for i in range(0, self.__map.get_height):
-            for j in range(0, self.__map.get_width):
-                if hint[i][j] == 0 and self.__agent_map[i][j] != "-":
+        for i in range(0, self.__map.get_height()):
+            for j in range(0, self.__map.get_width()):
+                if hint.get_hint_map()[i][j] == 0 and self.__agent_map[i][j] != "-":
                     sum_point += 1
-        return sum_point
+        for i in range(0, self.__map.get_height()):
+            for j in range(0, self.__map.get_width()):
+                if hint.get_hint_map()[i][j] == 1 and self.__agent_map[i][j] != "-":
+                    sum_point += 1
+        return sum_point /2
 
     def __choose_action(self):
         map = self.__map.get_data()
         max_count = 0
-        current_count = 0 
+        current_count = 0
         step = 0
         recored_dir = 0
 
@@ -120,14 +138,14 @@ class Agent:
             x = self.__coordinate.get_x()
             y = self.__coordinate.get_y()
             x -= move
-            if x < 0  or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
+            if x < 0 or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
                 break
             current_count = self.__calculate_point(x, y)
             if (current_count > max_count):
                 step = move
                 max_count = current_count
                 recored_dir = 1
-        
+
         # Examine down direction
         for move in range(1, 5):
             x = self.__coordinate.get_x()
@@ -162,7 +180,7 @@ class Agent:
             if y < 0 or 'P' in map[x][y] or 'M' in map[x][y] or map[x][y] == '0':
                 break
             current_count = self.__calculate_point(x, y)
-            if (current_count>max_count):
+            if (current_count > max_count):
                 step = move
                 max_count = current_count
                 recored_dir = 4
@@ -238,7 +256,8 @@ class Agent:
 
         # Verify_hint
         elif recored_dir == 6:
-            self.merge_hint()
+            self.merge_hint(self.__hint[step])
+            self.__hint.pop(step)
             return "The agent choose to use hint " + str(step)
 
         else:
@@ -257,9 +276,6 @@ class Agent:
                 print("Random to right")
                 return "Agent cannot find the optimal path. Let's move RIGHT"
 
-        
-
-
     def __teleport(self):
         map = self.__map.get_data()
         for x in range(0, self.__map.get_height()):
@@ -271,5 +287,3 @@ class Agent:
                         self.__agent_map[x][y] = '-'
                         self.__coordinate.set(x, y)
                         break
-
-    

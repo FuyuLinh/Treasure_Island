@@ -6,10 +6,6 @@ class Pirate:
     self.__X = x
     self.__Y = y
 
-  def verify_Hint(hint, treasure_X, treasure_Y):
-    if hint[treasure_X][treasure_Y] == 1:
-      return True
-    else:
-      return False
+
 
 
