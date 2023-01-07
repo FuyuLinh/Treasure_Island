@@ -46,25 +46,25 @@ class Agent:
         y = self.__coordinate.get_y()
         while (step > 0):
             if (direction == 0): # Up
-                if ('M' in map[x - 1][y] or map[x - 1][y] == '0' or x == 0):
+                if x == 0 or 'M' in map[x - 1][y] or map[x - 1][y] == '0':
                     break
                 x = x - 1
                 self.__agent_map[x][y] = '-'
                 step = step - 1
             elif (direction == 1): # Down
-                if ('M' in map[x + 1][y] or map[x + 1][y] == '0' or x == self.__map.get_height() - 1):
+                if x == self.__map.get_height() - 1 or 'M' in map[x + 1][y] or map[x + 1][y] == '0':
                     break
                 x = x + 1
                 self.__agent_map[x][y] = '-'
                 step = step - 1
             elif (direction == 2): # Left
-                if ('M' in map[x][y-1] or map[x][y-1] == '0' or y == 0):
+                if y == 0 or 'M' in map[x][y-1] or map[x][y-1] == '0':
                     break
                 y = y - 1
                 self.__agent_map[x][y] = '-'
                 step = step - 1
             elif (direction == 3): # Right
-                if ('M' in map[x][y+1] or map[x][y+1] == '0' or y == self.__map.get_width() - 1):
+                if y == self.__map.get_width() - 1 or 'M' in map[x][y+1] or map[x][y+1] == '0':
                     break
                 y = y + 1
                 self.__agent_map[x][y] = '-'
@@ -88,7 +88,7 @@ class Agent:
                     continue
                 if (self.__agent_map[i][j] == '1'):
                     sum_point += 1
-        print("point achieved:", sum_point, "at", x,":",y)
+        # print("point achieved:", sum_point, "at", x,":",y)
         return sum_point
 
     def __choose_action(self):
@@ -157,45 +157,81 @@ class Agent:
                 recored_dir = 4
         
         if (recored_dir == 0):
-            print("Record_dir:", recored_dir)
+            # print("Record_dir:", recored_dir)
             return step, 5
-        print("Record_dir:", recored_dir)
+        # print("Record_dir:", recored_dir)
         return step, recored_dir
 
     def action(self):
         step, recored_dir = self.__choose_action()
-        print("Record taken:", recored_dir)
+        # print("Record taken:", recored_dir)
         if recored_dir == 0:
             self.__scan(2)
             print("Stand and scan")
+            return "The agent has stand still and perform BIG SCAN"
+
+        # Move up
         elif recored_dir == 1:
             self.__move(0, step)
             if step == 1 or step == 2:
                 self.__scan(1)
+                print("Move up", step)
+                return "The agent has move UP " + str(step) + " steps and perform SMALL SCAN"
             print("Move up", step)
+            return "The agent has move UP " + str(step) + " steps"
+
+        # Move down
         elif recored_dir == 2:
             self.__move(1, step)
             if step == 1 or step == 2:
                 self.__scan(1)
+                print("Move down", step)
+                return "The agent has move DOWN " + str(step) + " steps and perform SMALL SCAN"
             print("Move down", step)
+            return "The agent has move DOWN " + str(step) + " steps"
+
+        # Move right
         elif recored_dir == 3:
             self.__move(3, step)
             if step == 1 or step == 2:
                 self.__scan(1)
+                print("Move right", step)
+                return "The agent has move RIGHT " + str(step) + " steps and perform SMALL SCAN"
             print("Move right", step)
+            return "The agent has move RIGHT " + str(step) + " steps"
+
+        # Move left
         elif recored_dir == 4:
             self.__move(2, step)
             if step == 1 or step == 2:
                 self.__scan(1)
+                print("Move left", step)
+                return "The agent has move LEFT " + str(step) + " steps and perform SMALL SCAN"
             print("Move left", step)
+            return "The agent has move LEFT " + str(step) + " steps"
+
+        # Teleport
         elif recored_dir == 5 and self.__teleport:
             print("teleport :)))")
             self.__teleport()
             self.__teleport = False
             print("You have teleported")
+            return "The agent has just TELEPORTED. What a magic move +_+"
         else:
-            print("Đang else nè má")
-            self.__move(int(random.randint(1, 4)), 2)
+            a = int(random.randint(0, 3))
+            self.__move(a, 2)
+            if a == 0:
+                print("Random to up")
+                return "Agent cannot find the optimal path. Let's move UP"
+            if a == 1:
+                print("Random to down")
+                return "Agent cannot find the optimal path. Let's move DOWN"
+            if a == 2:
+                print("Random to left")
+                return "Agent cannot find the optimal path. Let's move LEFT"
+            if a == 3:
+                print("Random to right")
+                return "Agent cannot find the optimal path. Let's move RIGHT"
 
         
 
@@ -206,7 +242,7 @@ class Agent:
             for y in range(0, self.__map.get_width()):
                 current_point = self.__calculate_point(x, y)
                 if current_point != 0:
-                    print("Hey I'm in")
+                    # print("Hey I'm in")
                     if ('M' not in map[x][y] and 'T' not in map[x][y] and map[x][y] != '0'):
                         self.__agent_map[x][y] = '-'
                         self.__coordinate.set(x, y)
